@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Sign Up</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <style>
         .center-container {
@@ -25,17 +26,17 @@
                         <input required type="text" class="form-control" id="firstname" placeholder="Firstname">
                     </div>
                     <div class="form-group col-md-6">
-                        <input required type="text" class="form-control" id="surname" placeholder="Surname">
+                        <input required type="text" class="form-control" id="lastname" placeholder="Lastname">
                     </div>
                 </div>
                 <div class="form-group">
-                    <input required type="email" class="form-control" id="email" placeholder="Email">
+                    <input required type="email" class="form-control" id="email1" placeholder="Email" autocomplete="username">
                 </div>
                 <div class="form-group">
                     <input required type="phone" class="form-control" id="phone" placeholder="Phone">
                 </div>
                 <div class="form-group">
-                    <input required type="password" class="form-control" id="pwd" placeholder="New Password">
+                    <input required type="password" class="form-control" id="pwd" placeholder="New Password" autocomplete="current-password">
                 </div>
                 <div class="form-group">
                     <input type="date" class="form-control" id="birthday">
@@ -55,10 +56,12 @@
                         By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy. You may receive SMS notifications from us and can opt out at any time.
                     </p>
                 </div>
-                <button type="submit" class="btn btn-success btn-block ">Sign Up</button>
+                <button type="submit" class="btn btn-success btn-block " onclick="createNewUser()">Sign Up</button>
             </form>
         </div>
     </div>
 </div>
+
+<script src="register.js"></script>
 </body>
 </html>

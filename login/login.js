@@ -14,9 +14,8 @@ function login() {
         data: JSON.stringify(user),
         url: "http://localhost:8080/api/auth/login",
         success: function (data) {
-            console.log(data)
-            // localStorage.setItem("object", JSON.stringify(data));
-            // window.location.href = "../**"
+            localStorage.setItem("object", JSON.stringify(data));
+            window.location.href = "../home/index.html"
         }
     })
 }
