@@ -2,7 +2,7 @@ function login() {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let user = {
-        "email":email,
+        "username":email,
         "password":password
     }
     $.ajax({
@@ -12,10 +12,11 @@ function login() {
         },
         type: "POST",
         data: JSON.stringify(user),
-        url: "http://localhost:8080/api/aut/customer",
+        url: "http://localhost:8080/api/auth/login",
         success: function (data) {
-            localStorage.setItem("object", JSON.stringify(data));
-            window.location.href = "../**"
+            console.log(data)
+            // localStorage.setItem("object", JSON.stringify(data));
+            // window.location.href = "../**"
         }
     })
 }
