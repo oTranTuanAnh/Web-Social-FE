@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Fakebook login or sign up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,11 +18,12 @@
     </div>
     <div class="Rightpart">
         <div class="loginpage">
-            <form>
-                <input type="text" id="email" placeholder="Email address or phone number">
-                <input type="password" id="password" placeholder="Password">
-                <input type="submit" onclick="login()" value="Log in">
-            </form>
+            <div>
+                <input type="text" id="email" autocomplete="on" placeholder="Email address or phone number">
+                <input type="password" id="password" name="password" autocomplete="on" placeholder="Password">
+                <button onclick="login()">Sub</button>
+<!--                <input type="submit" onclick="login()" value="Log in">-->
+            </div>
             <p style="font-family: Arial">Forgotten password?</p>
             <div>
                 <button type="button" class="btn createaccount" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Create account</button>
