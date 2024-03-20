@@ -25,6 +25,11 @@ h1{
     color:#1776f3;
     font-size: 65px;
 }
+
+#brand{
+    font-family: Arial;
+    color: #1776f3;
+}
 .slogan{
     color:black;
     font-size: 25px;
