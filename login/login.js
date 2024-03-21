@@ -57,7 +57,7 @@ function createNewUser(){
             window.location.href = "../login/login.html"
         },
         error: function (data){
-            window.location.href ="../register/register.html"
+            window.location.href ="../login/login.html"
         }
     })
     // } else {
