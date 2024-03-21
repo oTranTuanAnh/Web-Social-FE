@@ -53,11 +53,11 @@ function createNewUser(){
         data: JSON.stringify(newUser),
         url:"http://localhost:8080/users/create",
         success: function (data){
-            console.log("success")
+            localStorage.setItem("object", JSON.stringify(data));
             window.location.href = "../login/login.html"
         },
         error: function (data){
-            window.location.href ="../register/register.html"
+            window.location.href ="../login/login.html"
         }
     })
     // } else {
