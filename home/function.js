@@ -93,6 +93,7 @@ function showListPost() {
         })
     }
 }
+showListPost();
 
 function postingText() {
     let ob = getKeyLocalStorage();
