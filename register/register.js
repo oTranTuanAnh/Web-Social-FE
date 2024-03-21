@@ -32,6 +32,7 @@ function createNewUser(){
             url:"http://localhost:8080/users/create",
             success: function (data){
                 console.log("success")
+                window.location.href = "../login/login.html"
             }
         })
     // } else {
