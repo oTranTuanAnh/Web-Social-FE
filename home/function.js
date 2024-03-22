@@ -26,7 +26,10 @@ var userSettings = document.querySelector(".user-settings");
 var darkBtn = document.getElementById("dark-button");
 var LoadMoreBackground =document.querySelector(".btn-LoadMore");
 function UserSettingToggle(){
+    function showUserData() {
     userSettings.classList.toggle("user-setting-showup-toggle");
+}
+
 }
 // darkBtn.onclick = function(){
 //     darkBtn.classList.toggle("dark-mode-on");
@@ -55,7 +58,7 @@ function showListPost() {
             type: "GET",
             url: url,
             success: function (data) {
-                content = "";
+                let content = "";
                 for (let i = 0; i < data.length; i++) {
                     content += `
                 <div class="user-profile-box">
@@ -134,3 +137,28 @@ function deletePost(id) {
         success: showListPost
     });
 }
+function getUserData() {
+    let ob = getKeyLocalStorage();
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "GET",
+            url: 'http://localhost:8080/users/1',
+            success: function (data) {
+                let userName = "";
+                let firstName = data.firstName;
+                let lastName = data.lastName;
+                userName = firstName + lastName;
+                console.log("success");
+                document.getElementById("userName").innerText = userName;
+            }
+        })
+    }
+}
+getUserData();
