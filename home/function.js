@@ -139,6 +139,8 @@ function deletePost(id) {
 }
 function getUserData() {
     let ob = getKeyLocalStorage();
+    let id = ob.id;
+    let url = "http://localhost:8080/users/" + ob.id;
     if (ob != null) {
         let token = ob.token;
         $.ajax({
@@ -149,7 +151,7 @@ function getUserData() {
             },
             crossDomain: true,
             type: "GET",
-            url: 'http://localhost:8080/users/1',
+            url: url,
             success: function (data) {
                 let userName = "";
                 let firstName = data.firstName;
