@@ -89,11 +89,13 @@ function showListPost() {
                 content = "";
                 for (let i = 0; i < data.length; i++) {
                     content += `
+               
+                <div class="write-post-container">
                 <div class="user-profile-box">
                     <div class="user-profile">
                         <img src="images/profile-pic.png" alt="">
                         <div>
-                            <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
+                            <p>${data[i].user.firstName} ${data[i].user.lastName}</p>
                             <small>${data[i].createDate}</small>
                         </div>
                     </div>
@@ -115,6 +117,9 @@ function showListPost() {
                         <img src="images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
                     </div>
                 </div>
+                </div>
+                <hr>
+ 
             `
                 }
                 console.log("success");

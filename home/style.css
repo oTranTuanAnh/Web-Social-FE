@@ -747,3 +747,7 @@ button[name="delete_button"] {
 button[name="delete_button"]:hover {
     background-color: #cc0000;
 }
+.write-post-container{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
