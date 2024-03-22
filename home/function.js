@@ -198,3 +198,56 @@ function getUserData() {
     }
 }
 getUserData();
+function showListPostHome() {
+    let ob = getKeyLocalStorage();
+    let url = "http://localhost:8080/posts/home/" + ob.id;
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "GET",
+            url: url,
+            success: function (data) {
+                content = "";
+                for (let i = 0; i < data.length; i++) {
+                    content += `
+                <div class="user-profile-box">
+                    <div class="user-profile">
+                        <img src="images/profile-pic.png" alt="">
+                        <div>
+                            <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
+                            <small>${data[i].createDate}</small>
+                        </div>
+                    </div>
+                    <div>
+                    <a onclick="deletePost(${data[i].id})">Xóa</a>
+                    </div>
+                </div>
+                <div class="status-field">
+                    <p>${data[i].content}</p>
+                    <br>
+                </div>
+                <div class="post-reaction">
+                    <div class="activity-icons">
+                        <div><img src="images/like-blue.png" alt="">120</div>
+                        <div><img src="images/comments.png" alt="">52</div>
+                        <div><img src="images/share.png" alt="">35</div>
+                    </div>
+                    <div class="post-profile-picture">
+                        <img src="images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
+                    </div>
+                </div>
+            `
+                }
+                console.log("success");
+                document.getElementById("post-home").innerHTML = content;
+            }
+        })
+    }
+}
+showListPostHome();

@@ -17,6 +17,10 @@
 #post-text{
     background-color: white;
 }
+
+#post-home{
+    background-color: white;
+}
 .dark-theme {
     --body-color: #0a0a0a;
     --nav-color: #000;
