@@ -26,10 +26,7 @@ var userSettings = document.querySelector(".user-settings");
 var darkBtn = document.getElementById("dark-button");
 var LoadMoreBackground =document.querySelector(".btn-LoadMore");
 function UserSettingToggle(){
-    function showUserData() {
     userSettings.classList.toggle("user-setting-showup-toggle");
-}
-
 }
 // darkBtn.onclick = function(){
 //     darkBtn.classList.toggle("dark-mode-on");
@@ -43,6 +40,37 @@ function darkModeON(){
 function LoadMoreToggle(){
     LoadMoreBackground.classList.toggle("loadMoreToggle");
 };
+// $(document ).ready(function() {
+//     let ob = getKeyLocalStorage();
+//     let name = '<p>'+ob.name+'</p>';
+//     $('#user-name').innerHTML = name;
+// });
+// // $('#user-name').onload(function (){
+// //     let ob = getKeyLocalStorage();
+// //     let name = '<p>'+ob.name+'</p>';
+// //     document.getElementById("user-name").innerHTML = name;
+// // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function showListPost() {
     let ob = getKeyLocalStorage();
     let url = "http://localhost:8080/posts/" + ob.id;
@@ -58,7 +86,7 @@ function showListPost() {
             type: "GET",
             url: url,
             success: function (data) {
-                let content = "";
+                content = "";
                 for (let i = 0; i < data.length; i++) {
                     content += `
                 <div class="user-profile-box">
@@ -126,10 +154,10 @@ function postingText() {
     }
 }
 
-function getKeyLocalStorage() {
-    let a = JSON.parse(localStorage.getItem("object"));
-    return a;
-}
+// function getKeyLocalStorage() {
+//     let a = JSON.parse(localStorage.getItem("object"));
+//     return a;
+// }
 function deletePost(id) {
     $.ajax({
         type: "DELETE",
@@ -156,9 +184,10 @@ function getUserData() {
                 let userName = "";
                 let firstName = data.firstName;
                 let lastName = data.lastName;
-                userName = firstName + lastName;
+                userName = firstName +" " + lastName;
                 console.log("success");
                 document.getElementById("userName").innerText = userName;
+                document.getElementById("userName-post").innerText = userName;
             }
         })
     }
