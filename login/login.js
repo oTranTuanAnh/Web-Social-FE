@@ -57,7 +57,7 @@ function createNewUser(){
             window.location.href = "../login/login.html"
         },
         error: function (data){
-            window.location.href ="../login/login.html"
+            alert("Email is exist! Please try again")
         }
     })
     // } else {
@@ -65,3 +65,4 @@ function createNewUser(){
     // }
 
 }
+
