@@ -62,17 +62,17 @@ function showListPost() {
                     <div class="user-profile">
                         <img src="images/profile-pic.png" alt="">
                         <div>
-                            <p>' + ${data[i].user.name} + '</p>
-                            <small>August 13 1999, 09.18 pm</small>
+                            <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
+                            <small>${data[i].createDate}</small>
                         </div>
                     </div>
                     <div>
-                        <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                    <a onclick="deletePost(${data[i].id})">Xóa</a>
                     </div>
                 </div>
                 <div class="status-field">
-                    <p>' + ${data[i].content} +'
-                    </p>
+                    <p>${data[i].content}</p>
+                    <br>
                 </div>
                 <div class="post-reaction">
                     <div class="activity-icons">
@@ -87,7 +87,6 @@ function showListPost() {
             `
                 }
                 console.log("success");
-
                 document.getElementById("post-text").innerHTML = content;
             }
         })
@@ -97,7 +96,7 @@ showListPost();
 
 function postingText() {
     let ob = getKeyLocalStorage();
-    let content = document.getElementById("post-content").value;
+    let content = document.getElementById("post-text-input").value;
     let id = ob.id;
     let newPost = {
         "content": content,
@@ -127,4 +126,11 @@ function postingText() {
 function getKeyLocalStorage() {
     let a = JSON.parse(localStorage.getItem("object"));
     return a;
+}
+function deletePost(id) {
+    $.ajax({
+        type: "DELETE",
+        url: `http://localhost:8080/posts/${id}`,
+        success: showListPost
+    });
 }
