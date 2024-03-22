@@ -193,3 +193,7 @@ function getUserData() {
     }
 }
 getUserData();
+function logout() {
+    localStorage.removeItem("object");
+    window.location.href = "../login/login.html";
+}

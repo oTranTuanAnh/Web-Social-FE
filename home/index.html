@@ -73,7 +73,7 @@
 
         <div class="settings-links">
             <img src="images/logout.png" alt="" class="settings-icon">
-            <a href="#">Logout <img src="images/arrow.png" alt=""></a>
+            <a href="javascript:void(0)" onclick="logout()">Logout <img src="images/arrow.png" alt=""></a>
         </div>
 
     </div>
@@ -129,9 +129,10 @@
 
         <div class="write-post-container">
             <div class="user-profile">
+
                 <img src="images/profile-pic.png" alt="">
                 <div class="user-name">
-<!--                    <p> Alex Carry</p>-->
+                    <h3 id="userName"></h3>
                     <small>Public <i class="fas fa-caret-down"></i></small>
                 </div>
             </div>
