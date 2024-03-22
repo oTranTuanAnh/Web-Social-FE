@@ -101,6 +101,7 @@ function showListPost() {
                     </div>
                     <div>
                     <button name="delete_button" onclick="deletePost(${data[i].id})">Xóa</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
                     </div>
                 </div>
                 <div class="status-field">
