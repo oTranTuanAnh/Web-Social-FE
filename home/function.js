@@ -40,6 +40,37 @@ function darkModeON(){
 function LoadMoreToggle(){
     LoadMoreBackground.classList.toggle("loadMoreToggle");
 };
+// $(document ).ready(function() {
+//     let ob = getKeyLocalStorage();
+//     let name = '<p>'+ob.name+'</p>';
+//     $('#user-name').innerHTML = name;
+// });
+// // $('#user-name').onload(function (){
+// //     let ob = getKeyLocalStorage();
+// //     let name = '<p>'+ob.name+'</p>';
+// //     document.getElementById("user-name").innerHTML = name;
+// // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function showListPost() {
     let ob = getKeyLocalStorage();
     let url = "http://localhost:8080/posts/" + ob.id;
@@ -123,10 +154,10 @@ function postingText() {
     }
 }
 
-function getKeyLocalStorage() {
-    let a = JSON.parse(localStorage.getItem("object"));
-    return a;
-}
+// function getKeyLocalStorage() {
+//     let a = JSON.parse(localStorage.getItem("object"));
+//     return a;
+// }
 function deletePost(id) {
     $.ajax({
         type: "DELETE",
@@ -134,3 +165,30 @@ function deletePost(id) {
         success: showListPost
     });
 }
+function getUserData() {
+    let ob = getKeyLocalStorage();
+    let id = ob.id;
+    let url = "http://localhost:8080/users/" + ob.id;
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "GET",
+            url: url,
+            success: function (data) {
+                let userName = "";
+                let firstName = data.firstName;
+                let lastName = data.lastName;
+                userName = firstName + lastName;
+                console.log("success");
+                document.getElementById("userName").innerText = userName;
+            }
+        })
+    }
+}
+getUserData();
