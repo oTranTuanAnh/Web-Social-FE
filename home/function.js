@@ -93,7 +93,7 @@ function showListPost() {
                     <div class="user-profile">
                         <img src="images/profile-pic.png" alt="">
                         <div>
-                            <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
+                            <p>${data[i].user.firstName} ${data[i].user.lastName}</p>
                             <small>${data[i].createDate}</small>
                         </div>
                     </div>
