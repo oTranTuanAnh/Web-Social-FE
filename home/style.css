@@ -729,6 +729,21 @@ button[name="post_button"] {
     transition: background-color 0.3s;
 }
 
-button[name="post_button"]:hover {
+button[name="delete_button"]:hover {
     background-color: #0e5a9e;
+}
+
+button[name="delete_button"] {
+    background-color: #ff0000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[name="delete_button"]:hover {
+    background-color: #cc0000;
 }

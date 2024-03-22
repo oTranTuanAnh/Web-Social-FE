@@ -98,7 +98,7 @@ function showListPost() {
                         </div>
                     </div>
                     <div>
-                    <a onclick="deletePost(${data[i].id})">Xóa</a>
+                    <button name="delete_button" onclick="deletePost(${data[i].id})">Xóa</button>
                     </div>
                 </div>
                 <div class="status-field">
