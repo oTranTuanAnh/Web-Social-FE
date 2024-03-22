@@ -184,9 +184,10 @@ function getUserData() {
                 let userName = "";
                 let firstName = data.firstName;
                 let lastName = data.lastName;
-                userName = firstName + lastName;
+                userName = firstName +" " + lastName;
                 console.log("success");
                 document.getElementById("userName").innerText = userName;
+                document.getElementById("userName-post").innerText = userName;
             }
         })
     }
