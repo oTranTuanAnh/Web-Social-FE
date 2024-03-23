@@ -52,25 +52,6 @@ function LoadMoreToggle(){
 // // })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function showListPost() {
     let ob = getKeyLocalStorage();
     let url = "http://localhost:8080/posts/" + ob.id;
@@ -101,7 +82,7 @@ function showListPost() {
                     </div>
                     <div>
                     <button name="delete_button" onclick="deletePost(${data[i].id})">Xóa</button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+                    <button onclick="setPostHiddenId(${data[i].id})" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Edit</button>
                     </div>
                 </div>
                 <div class="status-field">
@@ -168,6 +149,35 @@ function deletePost(id) {
     $.ajax({
         type: "DELETE",
         url: `http://localhost:8080/posts/${id}`,
+        success: showListPost
+    });
+}
+function setPostHiddenId(h_id){
+    document.getElementById("old_post_id").setAttribute("value", h_id);
+    // console.log(h_id);
+}
+function editPost() {
+    let ob = getKeyLocalStorage();
+    let p_id = document.getElementById("old_post_id").value;
+    let u_id = ob.id;
+    let content = document.getElementById("new-post-text").value;
+    let newPostEdit = {
+        "content": content,
+        "user": {
+            "id": u_id
+        }
+    }
+    let token_edit = ob.token;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token_edit
+        },
+        crossDomain: true,
+        type: "PUT",
+        data: JSON.stringify(newPostEdit),
+        url: `http://localhost:8080/posts/edit/${p_id}`,
         success: showListPost
     });
 }
