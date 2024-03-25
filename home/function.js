@@ -178,7 +178,7 @@ function postingText() {
 function deletePost(id) {
     $.ajax({
         type: "DELETE",
-        url: `http://localhost:8080/posts/${id}`,
+        url: `http://localhost:8080/posts/delete/${id}`,
         success: showListPost
     });
 }
