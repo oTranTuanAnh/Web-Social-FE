@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,8 +9,9 @@
     <link rel="stylesheet" href="style.css">
     <title>Socialbook - html css template</title>
     <script src="https://kit.fontawesome.com/ef7e2b893b.js" crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="function.js"></script>
 </head>
-
 <body>
 <nav class="navbar">
     <div class="nav-left"><img class="logo" src="images/logo.png" alt="">
@@ -21,11 +21,11 @@
             <img src="images/search.png" alt="">
             <input type="text" placeholder="Search">
         </div>
-
     </div>
     <div class="nav-right">
         <ul class="navlogo">
-            <li><img src="images/notification.png"></li>
+            <li><img src="images/notification.png">
+            </li>
             <li><img src="images/inbox.png"></li>
             <li><img src="images/video.png"></li>
         </ul>
@@ -85,7 +85,7 @@
     <div class="left-sidebar">
         <div class="important-links">
             <a href="#"><img src="images/news.png" alt="">Latest News</a>
-            <a href="#"><img src="images/friends.png" alt="">Friends</a>
+            <a href="/users/friend"><img src="images/friends.png" alt="">Friends</a>
             <a href="#"><img src="images/group.png" alt="">Groups</a>
             <a href="#"><img src="images/marketplace.png" alt="">marketplace</a>
             <a href="#"><img src="images/watch.png" alt="">Watch</a>
@@ -147,30 +147,30 @@
             <h4>Events</h4>
             <a href="">See All</a>
         </div>
-
-        <div class="events">
-            <div class="left-event">
-                <h4>13</h4>
-                <span>august</span>
+        <div id="friend-request">
+            <div class="events">
+                <div class="left-event">
+                    <h4>13</h4>
+                    <span>august</span>
+                </div>
+                <div class="right-event">
+                    <h4>Social Media</h4>
+                    <p> <i class="fas fa-map-marker-alt"></i> wisdom em Park</p>
+                    <a href="#">More Info</a>
+                </div>
             </div>
-            <div class="right-event">
-                <h4>Social Media</h4>
-                <p> <i class="fas fa-map-marker-alt"></i> wisdom em Park</p>
-                <a href="#">More Info</a>
+            <div class="events">
+                <div class="left-event">
+                    <h4>18</h4>
+                    <span>January</span>
+                </div>
+                <div class="right-event">
+                    <h4>Mobile Marketing</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> wisdom em Park</p>
+                    <a href="#">More Info</a>
+                </div>
             </div>
         </div>
-        <div class="events">
-            <div class="left-event">
-                <h4>18</h4>
-                <span>January</span>
-            </div>
-            <div class="right-event">
-                <h4>Mobile Marketing</h4>
-                <p><i class="fas fa-map-marker-alt"></i> wisdom em Park</p>
-                <a href="#">More Info</a>
-            </div>
-        </div>
-
         <div class="heading-link">
             <h4>Advertisement</h4>
             <a href="">Close</a>
@@ -183,25 +183,8 @@
             <h4>Conversation</h4>
             <a href="">Hide Chat</a>
         </div>
+        <div id="friend-list">
 
-        <div class="online-list">
-            <div class="online">
-                <img src="images/member-1.png" alt="">
-            </div>
-            <p>Alison Mina</p>
-        </div>
-
-        <div class="online-list">
-            <div class="online">
-                <img src="images/member-2.png" alt="">
-            </div>
-            <p>Jackson Aston</p>
-        </div>
-        <div class="online-list">
-            <div class="online">
-                <img src="images/member-3.png" alt="">
-            </div>
-            <p>Samona Rose</p>
         </div>
     </div>
 </div>
@@ -209,7 +192,6 @@
 <footer id="footer">
     <p>&copy; Copyright 2021 - Socialbook All Rights Reserved</p>
 </footer>
-
 <script src="function.js"></script>
 </body>
 </html>

@@ -317,3 +317,133 @@ function showLikePost(id) {
         }
     });
 }
+function showListUser() {
+    // event.preventDefault();
+    let ob = getKeyLocalStorage();
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "GET",
+            url: "http://localhost:8080/home/friend",
+            success: function (data) {
+                content = "";
+                for (let i = 0; i < data.length; i++) {
+                    content += `
+                    <div className="online-list">
+                        <div className="online">
+                            <img src="images/member-1.png" alt="" onclick="showProfile(${data[i].id})">
+<!--                            <a href="">-->
+                        </div>
+                        <p>${data[i].firstName}  ${data[i].lastName} </p>
+                    <button name = "addfriend_button" onclick="addFriendRequest(${data[i].id})" type="button" id="btn-addfriend">+Add Friend</button>
+                    </div>`
+                }
+                document.getElementById("friend-list").innerHTML = content;
+            }
+        })
+    }
+}
+function addFriendRequest(id){
+    let ob = getKeyLocalStorage();
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token,
+            },
+            crossDomain: true,
+            type: "GET",
+            url: "http://localhost:8080/home/friendrequest/add/"+id,
+            success: function (data) {
+                console.log("done");
+                // window.location.href = "../home/index.html";
+            }
+        })
+    }
+}
+function showFriendRequest(){
+    let ob = getKeyLocalStorage();
+    if (ob != null) {
+        let id = ob.id;
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "GET",
+            url: "http://localhost:8080/home/friendrequest/"+id,
+            success: function (data) {
+                console.log(data)
+                content = ``;
+                for (let i=0;i<data.length;i++){
+                    content += `<div className="online-list">
+                        <div className="online">
+                            <img src="images/member-1.png" alt="">
+                            <p>${data[i].user1.firstName} ${data[i].user1.lastName} </p>
+                        </div>
+                    <button name = "accept_button" onclick="successRequest(${data[i].user1.id})" type="button" >Accept</button>
+                    <button name = "remove_button" onclick="removeRequest(${data[i].user1.id})" type="button" >Remove</button>
+                    </div>`;
+                }
+                document.getElementById("friend-request").innerHTML = content;
+            }
+        })
+    }
+}
+function showProfile(id){
+    localStorage.setItem("id",id);
+    window.location.href = "profile.html";
+}
+function successRequest(id){
+    event.preventDefault();
+    let ob = getKeyLocalStorage();
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "PUT",
+            url: "http://localhost:8080/home/friendrequest/"+id,
+            success: function (data) {
+                console.log(data)
+            }
+        })
+    }
+}
+function removeRequest(id){
+    event.preventDefault();
+    let ob = getKeyLocalStorage();
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "DELETE",
+            url: "http://localhost:8080/home/friendrequest/"+id,
+            success: function (data) {
+                console.log(data)
+            }
+        })
+    }
+}
+showFriendRequest();
+showListUser();
