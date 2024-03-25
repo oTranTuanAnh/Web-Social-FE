@@ -51,25 +51,33 @@ function LoadMoreToggle(){
 // //     document.getElementById("user-name").innerHTML = name;
 // // })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function createLikesPost(id) {
+    let ob = getKeyLocalStorage();
+    let user_Id = ob.id;
+    let likePost = {
+        "post": {
+            "id":id
+        },
+        "user":{
+            "id":user_Id
+        }
+    }
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "POST",
+            data: JSON.stringify(likePost),
+            url: "http://localhost:8080/likes/create",
+            success: showListPostHome
+        })
+    }
+}
 
 function showListPost() {
     let ob = getKeyLocalStorage();
@@ -89,6 +97,8 @@ function showListPost() {
                 content = "";
                 for (let i = 0; i < data.length; i++) {
                     content += `
+               
+                <div class="write-post-container">
                 <div class="user-profile-box">
                     <div class="user-profile">
                         <img src="images/profile-pic.png" alt="">
@@ -99,6 +109,7 @@ function showListPost() {
                     </div>
                     <div>
                     <button name="delete_button" onclick="deletePost(${data[i].id})">Xóa</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
                     </div>
                 </div>
                 <div class="status-field">
@@ -115,6 +126,9 @@ function showListPost() {
                         <img src="images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
                     </div>
                 </div>
+                </div>
+                <hr>
+ 
             `
                 }
                 console.log("success");
@@ -193,7 +207,84 @@ function getUserData() {
     }
 }
 getUserData();
+
 function logout() {
     localStorage.removeItem("object");
     window.location.href = "../login/login.html";
 }
+
+function showListPostHome() {
+    let ob = getKeyLocalStorage();
+    let url = "http://localhost:8080/posts/home/" + ob.id;
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "GET",
+            url: url,
+            success: function (data) {
+                content = "";
+                for (let i = 0; i < data.length; i++) {
+                    content += `
+                <div class="user-profile-box">
+                    <div class="user-profile">
+                        <img src="images/profile-pic.png" alt="">
+                        <div>
+                            <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
+                            <small>${data[i].createDate}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-field">
+                    <p>${data[i].content}</p>
+                    <br>
+                </div>
+                <div class="post-reaction">
+                    <div class="activity-icons">
+                        <div>
+                        <button onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})">Like</button>
+                        </div>
+<!--                        <img src="images/like-blue.png" alt="">120</div>-->
+                        <div><img src="images/comments.png" alt="">52</div>
+                        <div><img src="images/share.png" alt="">35</div>
+                    </div>
+                    <div class="post-profile-picture">
+                        <img src="images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
+                    </div>
+                </div>
+            `
+                }
+                console.log("success");
+                document.getElementById("post-home").innerHTML = content;
+            }
+        })
+    }
+}
+showListPostHome();
+
+function showLikePost(id) {
+    let ob = getKeyLocalStorage();
+    let url = "http://localhost:8080/likes/" + id;
+    let token = ob.token;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+        crossDomain: true,
+        type: "GET",
+        url: url,
+        success: function(data) {
+            console.log(data)
+            $('#likeData').text(JSON.stringify(data));
+        }
+    });
+}
+
+
