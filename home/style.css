@@ -769,3 +769,59 @@ button[name="delete_button"]:hover {
     height: 1px;
     background-color: #626262;
 }
+
+.input-style {
+    width: 100%; /* Chiều rộng của ô input là 100% của container cha */
+    padding: 10px; /* Kích thước padding bên trong ô input */
+    border: 1px solid #ccc; /* Viền của ô input */
+    border-radius: 5px; /* Bo tròn góc của ô input */
+    box-sizing: border-box; /* Đảm bảo rằng padding và border không làm thay đổi kích thước thực sự của input */
+    font-size: 13px; /* Kích thước chữ trong input */
+    color:#626262;
+}
+
+
+.input-style:hover {
+    border-color: #999;
+}
+
+
+.input-style:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+}
+
+.comment_ok_btn{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #1876f2;
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 7px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete_button_cmt{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #ff0000;
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 7px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.outer-div{
+    background-color: #f0f0f0; /* Màu nền của thẻ div */
+    padding: 10px; /* Khoảng cách bên trong của thẻ div */
+    border-radius: 5px; /* Bo tròn góc của thẻ div */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho thẻ div */
+    margin-bottom: 20px; /* Khoảng cách với phần tử dưới đó */
+}
