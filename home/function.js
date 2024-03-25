@@ -152,7 +152,10 @@ function postingText() {
             type: "POST",
             data: JSON.stringify(newPost),
             url: "http://localhost:8080/posts/create",
-            success: showListPost
+            success: function () {
+                showListPost;
+                document.getElementById("post-text-input").value="";
+            }
         })
     } else {
         window.location.href = "../login/profile.html"
@@ -333,7 +336,7 @@ function showListUser() {
                     content += `
                     <div className="online-list">
                         <div className="online">
-                            <img src="images/member-1.png" alt="" onclick="showProfile(${data[i].id})">
+                            <img src="images/member-1.png" alt="" onclick="setUserLocalStorage(${data[i].id})">
 <!--                            <a href="">-->
                         </div>
                         <p>${data[i].firstName}  ${data[i].lastName} </p>
@@ -360,6 +363,7 @@ function addFriendRequest(id){
             url: "http://localhost:8080/home/friendrequest/add/"+id,
             success: function (data) {
                 console.log("done");
+                window.location.reload();
                 // window.location.href = "../home/index.html";
             }
         })
@@ -416,7 +420,8 @@ function successRequest(id){
             type: "PUT",
             url: "http://localhost:8080/home/friendrequest/"+id,
             success: function (data) {
-                console.log(data)
+                console.log(data);
+                window.location.reload();
             }
         })
     }

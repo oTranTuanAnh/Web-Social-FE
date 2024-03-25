@@ -1,3 +1,6 @@
+var userSettings = document.querySelector(".user-settings");
+var darkBtn = document.getElementById("dark-button");
+var LoadMoreBackground =document.querySelector(".btn-LoadMore");
 function getUserData() {
     let ob = JSON.parse(localStorage.getItem("object"));
     let id = parseInt(localStorage.getItem("tempUser"));
@@ -58,7 +61,7 @@ function friendStatusButton() {
                         content += '<button type="button"><i class="fas fa-user"></i>Friends</button>'
                         break;
                     default:
-                        content += '<button type="button"><i class="fas fa-user-plus"></i> Add friends</button>'
+                        content += '<button type="button"><i class="fas fa-user-plus" onclick="addFriendRequest(${data[i].id});"></i> Add friends</button>'
                 }
                 console.log("success");
                 document.getElementById("friendStatus").innerHTML = content;
@@ -67,3 +70,10 @@ function friendStatusButton() {
     }
 }
 friendStatusButton();
+function UserSettingToggle(){
+    userSettings.classList.toggle("user-setting-showup-toggle");
+}
+function darkModeON(){
+    darkBtn.classList.toggle("dark-mode-on");
+    document.body.classList.toggle("dark-theme");
+};
