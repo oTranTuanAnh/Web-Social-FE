@@ -772,12 +772,12 @@ button[name="delete_button"]:hover {
 }
 
 .input-style {
-    width: 100%; /* Chiều rộng của ô input là 100% của container cha */
-    padding: 10px; /* Kích thước padding bên trong ô input */
-    border: 1px solid #ccc; /* Viền của ô input */
-    border-radius: 5px; /* Bo tròn góc của ô input */
-    box-sizing: border-box; /* Đảm bảo rằng padding và border không làm thay đổi kích thước thực sự của input */
-    font-size: 13px; /* Kích thước chữ trong input */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 13px;
     color:#626262;
 }
 
@@ -820,9 +820,9 @@ button[name="delete_button"]:hover {
 }
 
 .outer-div{
-    background-color: #f0f0f0; /* Màu nền của thẻ div */
-    padding: 10px; /* Khoảng cách bên trong của thẻ div */
-    border-radius: 5px; /* Bo tròn góc của thẻ div */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho thẻ div */
-    margin-bottom: 20px; /* Khoảng cách với phần tử dưới đó */
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
