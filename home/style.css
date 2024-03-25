@@ -17,6 +17,10 @@
 #post-text{
     background-color: white;
 }
+
+#post-home{
+    background-color: white;
+}
 .dark-theme {
     --body-color: #0a0a0a;
     --nav-color: #000;
@@ -729,6 +733,25 @@ button[name="post_button"] {
     transition: background-color 0.3s;
 }
 
-button[name="post_button"]:hover {
+button[name="delete_button"]:hover {
     background-color: #0e5a9e;
+}
+
+button[name="delete_button"] {
+    background-color: #ff0000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[name="delete_button"]:hover {
+    background-color: #cc0000;
+}
+.write-post-container{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
 }

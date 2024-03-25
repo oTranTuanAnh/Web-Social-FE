@@ -20,6 +20,7 @@ function login() {
     })
 }
 
+
 function createNewUser(){
     let firstname = document.getElementById("firstname").value;
     let lastname = document.getElementById("lastname").value;
@@ -57,7 +58,7 @@ function createNewUser(){
             window.location.href = "../login/login.html"
         },
         error: function (data){
-            window.location.href ="../login/login.html"
+            alert("Email is exist! Please try again")
         }
     })
     // } else {
@@ -65,3 +66,4 @@ function createNewUser(){
     // }
 
 }
+

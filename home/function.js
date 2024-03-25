@@ -52,24 +52,33 @@ function LoadMoreToggle(){
 // // })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function createLikesPost(id) {
+    let ob = getKeyLocalStorage();
+    let user_Id = ob.id;
+    let likePost = {
+        "post": {
+            "id":id
+        },
+        "user":{
+            "id":user_Id
+        }
+    }
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "POST",
+            data: JSON.stringify(likePost),
+            url: "http://localhost:8080/likes/create",
+            success: showListPostHome
+        })
+    }
+}
 
 function showListPost() {
     let ob = getKeyLocalStorage();
@@ -93,12 +102,13 @@ function showListPost() {
                     <div class="user-profile">
                         <img src="images/profile-pic.png" alt="">
                         <div>
-                            <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
+                            <p>${data[i].user.firstName} ${data[i].user.lastName}</p>
                             <small>${data[i].createDate}</small>
                         </div>
                     </div>
                     <div>
-                    <a onclick="deletePost(${data[i].id})">Xóa</a>
+                    <button name="delete_button" onclick="deletePost(${data[i].id})">Xóa</button>
+                    <button onclick="setPostHiddenId(${data[i].id})" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Edit</button>
                     </div>
                 </div>
                 <div class="status-field">
@@ -165,7 +175,144 @@ function deletePost(id) {
         success: showListPost
     });
 }
+function setPostHiddenId(h_id){
+    document.getElementById("old_post_id").setAttribute("value", h_id);
+    // console.log(h_id);
+}
+function editPost() {
+    let ob = getKeyLocalStorage();
+    let p_id = document.getElementById("old_post_id").value;
+    let u_id = ob.id;
+    let content = document.getElementById("new-post-text").value;
+    let newPostEdit = {
+        "content": content,
+        "user": {
+            "id": u_id
+        }
+    }
+    let token_edit = ob.token;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token_edit
+        },
+        crossDomain: true,
+        type: "PUT",
+        data: JSON.stringify(newPostEdit),
+        url: `http://localhost:8080/posts/edit/${p_id}`,
+        success: showListPost
+    });
+}
+function getUserData() {
+    let ob = getKeyLocalStorage();
+    let id = ob.id;
+    let url = "http://localhost:8080/users/" + ob.id;
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "GET",
+            url: url,
+            success: function (data) {
+                let userName = "";
+                let firstName = data.firstName;
+                let lastName = data.lastName;
+                userName = firstName +" " + lastName;
+                console.log("success");
+                document.getElementById("userName").innerText = userName;
+                document.getElementById("userName-post").innerText = userName;
+            }
+        })
+    }
 function setUserLocalStorage(id) {
     localStorage.setItem("tempUser", id);
     window.location.href="friendProfile.html"
 }
+getUserData();
+
+function logout() {
+    localStorage.removeItem("object");
+    window.location.href = "../login/login.html";
+}
+
+function showListPostHome() {
+    let ob = getKeyLocalStorage();
+    let url = "http://localhost:8080/posts/home/" + ob.id;
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "GET",
+            url: url,
+            success: function (data) {
+                content = "";
+                for (let i = 0; i < data.length; i++) {
+                    content += `
+                <div class="user-profile-box">
+                    <div class="user-profile">
+                        <img src="images/profile-pic.png" alt="">
+                        <div>
+                            <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
+                            <small>${data[i].createDate}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-field">
+                    <p>${data[i].content}</p>
+                    <br>
+                </div>
+                <div class="post-reaction">
+                    <div class="activity-icons">
+                        <div>
+                        <button onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})">Like</button>
+                        </div>
+<!--                        <img src="images/like-blue.png" alt="">120</div>-->
+                        <div><img src="images/comments.png" alt="">52</div>
+                        <div><img src="images/share.png" alt="">35</div>
+                    </div>
+                    <div class="post-profile-picture">
+                        <img src="images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
+                    </div>
+                </div>
+            `
+                }
+                console.log("success");
+                document.getElementById("post-home").innerHTML = content;
+            }
+        })
+    }
+}
+showListPostHome();
+
+function showLikePost(id) {
+    let ob = getKeyLocalStorage();
+    let url = "http://localhost:8080/likes/" + id;
+    let token = ob.token;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+        crossDomain: true,
+        type: "GET",
+        url: url,
+        success: function(data) {
+            console.log(data)
+            $('#likeData').text(JSON.stringify(data));
+        }
+    });
+}
+
+
