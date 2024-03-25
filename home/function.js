@@ -52,6 +52,34 @@ function LoadMoreToggle(){
 // // })
 
 
+function createLikesPost(id) {
+    let ob = getKeyLocalStorage();
+    let user_Id = ob.id;
+    let likePost = {
+        "post": {
+            "id":id
+        },
+        "user":{
+            "id":user_Id
+        }
+    }
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "POST",
+            data: JSON.stringify(likePost),
+            url: "http://localhost:8080/likes/create",
+            success: showListPostHome
+        })
+    }
+}
+
 function showListPost() {
     let ob = getKeyLocalStorage();
     let url = "http://localhost:8080/posts/" + ob.id;
@@ -76,7 +104,7 @@ function showListPost() {
                     <div class="user-profile">
                         <img src="images/profile-pic.png" alt="">
                         <div>
-                            <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
+                            <p>${data[i].user.firstName} ${data[i].user.lastName}</p>
                             <small>${data[i].createDate}</small>
                         </div>
                     </div>
@@ -91,7 +119,9 @@ function showListPost() {
                 </div>
                 <div class="post-reaction">
                     <div class="activity-icons">
-                        <div><img src="images/like-blue.png" alt="">120</div>
+                    <div>
+                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
+<!--                        <div><img src="images/like-blue.png" alt="">120</div>-->
                         <div><img src="images/comments.png" alt="">52</div>
                         <div><img src="images/share.png" alt="">35</div>
                     </div>
@@ -148,7 +178,7 @@ function postingText() {
 function deletePost(id) {
     $.ajax({
         type: "DELETE",
-        url: `http://localhost:8080/posts/${id}`,
+        url: `http://localhost:8080/posts/delete/${id}`,
         success: showListPost
     });
 }
@@ -183,7 +213,8 @@ function editPost() {
 }
 function getUserData() {
     let ob = getKeyLocalStorage();
-    let url = "http://localhost:8080/users/" + ob.id;
+    let id = ob.id;
+    let url = "http://localhost:8080/users/" + id;
     if (ob != null) {
         let token = ob.token;
         $.ajax({
@@ -208,6 +239,12 @@ function getUserData() {
     }
 }
 getUserData();
+
+function logout() {
+    localStorage.removeItem("object");
+    window.location.href = "../login/login.html";
+}
+
 function showListPostHome() {
     let ob = getKeyLocalStorage();
     let url = "http://localhost:8080/posts/home/" + ob.id;
@@ -242,9 +279,7 @@ function showListPostHome() {
                 <div class="post-reaction">
                     <div class="activity-icons">
                         <div>
-                        <button onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})">Like</button>
-                        </div>
-<!--                        <img src="images/like-blue.png" alt="">120</div>-->
+                            <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
                         <div><img src="images/comments.png" alt="">52</div>
                         <div><img src="images/share.png" alt="">35</div>
                     </div>
@@ -276,35 +311,9 @@ function showLikePost(id) {
         type: "GET",
         url: url,
         success: function(data) {
-            console.log(data)
-            $('#likeData').text(JSON.stringify(data));
+            // console.log(data)
+            // $('#likeData').text(JSON.stringify(data));
+            document.getElementById(`postLike${id}`).innerHTML = JSON.stringify(data);
         }
     });
-}
-function createLikesPost(id) {
-    let ob = getKeyLocalStorage();
-    let user_Id = ob.id;
-    let likePost = {
-        "post": {
-            "id":id
-        },
-        "user":{
-            "id":user_Id
-        }
-    }
-    if (ob != null) {
-        let token = ob.token;
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer " + token
-            },
-            crossDomain: true,
-            type: "POST",
-            data: JSON.stringify(likePost),
-            url: "http://localhost:8080/likes/create",
-            success: showListPostHome
-        })
-    }
 }
