@@ -807,14 +807,13 @@ button[name="delete_button"]:hover {
 }
 
 .delete_button_cmt{
-    margin-top: 5px;
-    margin-bottom: 5px;
+    float:right;
     background-color: #ff0000;
     color: white;
-    padding: 5px 5px;
+    padding: 3px 7px;
     border: none;
     border-radius: 7px;
-    font-size: 14px;
+    font-size: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
 }

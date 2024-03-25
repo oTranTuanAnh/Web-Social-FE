@@ -291,7 +291,7 @@ function showListPostHome() {
                 </div>
                 <div id = "comment_list" style="display: none">
                 <div id="showComment"></div>
-               <input class="input-style" type="text" id="comment-text${data[i].id}">
+               <input class="input-style" placeholder="Comment..." type="text" id="comment-text${data[i].id}">
                <button class="comment_ok_btn" onclick="createNewCom(${data[i].id})">Send</button>          
                     </div>
 <div class="line-post"></div>`
@@ -343,6 +343,7 @@ document.getElementById("comment_list").style.display = "block";
                 commentList = "";
                 for (let i = 0; i < data.length; i++) {
                     commentList += `<div class="outer-div">
+ <button class="delete_button_cmt" onclick="deleteCom(${data[i].id}, ${p_id})">X</button>
  <div class="user-profile">
                         <img src="images/profile-pic.png" alt="">
                         <div>
@@ -351,9 +352,7 @@ document.getElementById("comment_list").style.display = "block";
                     </div>
                     <br>
                             <p>${data[i].content}</p>
-                             <button class="delete_button_cmt" onclick="deleteCom(${data[i].id}, ${p_id})">Delete</button>
-                    
-                             </div>   `;
+                             </div>`;
                   }
                 document.getElementById("showComment").innerHTML =commentList;
             }
