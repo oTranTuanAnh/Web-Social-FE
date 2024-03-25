@@ -207,7 +207,7 @@ function editPost() {
 function getUserData() {
     let ob = getKeyLocalStorage();
     let id = ob.id;
-    let url = "http://localhost:8080/users/" + ob.id;
+    let url = "http://localhost:8080/users/" + id;
     if (ob != null) {
         let token = ob.token;
         $.ajax({
@@ -275,9 +275,7 @@ function showListPostHome() {
                 <div class="post-reaction">
                     <div class="activity-icons">
                         <div>
-                        <button onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})">Like</button>
-                        </div>
-<!--                        <img src="images/like-blue.png" alt="">120</div>-->
+                            <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
                         <div><img src="images/comments.png" alt="">52</div>
                         <div><img src="images/share.png" alt="">35</div>
                     </div>
@@ -309,8 +307,9 @@ function showLikePost(id) {
         type: "GET",
         url: url,
         success: function(data) {
-            console.log(data)
-            $('#likeData').text(JSON.stringify(data));
+            // console.log(data)
+            // $('#likeData').text(JSON.stringify(data));
+            document.getElementById(`postLike${id}`).innerHTML = JSON.stringify(data);
         }
     });
 }
