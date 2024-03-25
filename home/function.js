@@ -119,7 +119,9 @@ function showListPost() {
                 </div>
                 <div class="post-reaction">
                     <div class="activity-icons">
-                        <div><img src="images/like-blue.png" alt="">120</div>
+                    <div>
+                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
+<!--                        <div><img src="images/like-blue.png" alt="">120</div>-->
                         <div><img src="images/comments.png" alt="">52</div>
                         <div><img src="images/share.png" alt="">35</div>
                     </div>
