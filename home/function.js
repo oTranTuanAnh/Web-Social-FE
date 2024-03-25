@@ -51,25 +51,33 @@ function LoadMoreToggle(){
 // //     document.getElementById("user-name").innerHTML = name;
 // // })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function createLikesPost(id) {
+    let ob = getKeyLocalStorage();
+    let user_Id = ob.id;
+    let likePost = {
+        "post": {
+            "id":id
+        },
+        "user":{
+            "id":user_Id
+        }
+    }
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "POST",
+            data: JSON.stringify(likePost),
+            url: "http://localhost:8080/likes/create",
+            success: showListPostHome
+        })
+    }
+}
 
 function showListPost() {
     let ob = getKeyLocalStorage();
@@ -225,9 +233,6 @@ function showListPostHome() {
                             <small>${data[i].createDate}</small>
                         </div>
                     </div>
-                    <div>
-                    <a onclick="deletePost(${data[i].id})">Xóa</a>
-                    </div>
                 </div>
                 <div class="status-field">
                     <p>${data[i].content}</p>
@@ -235,7 +240,10 @@ function showListPostHome() {
                 </div>
                 <div class="post-reaction">
                     <div class="activity-icons">
-                        <div><img src="images/like-blue.png" alt="">120</div>
+                        <div>
+                        <button onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})">Like</button>
+                        </div>
+<!--                        <img src="images/like-blue.png" alt="">120</div>-->
                         <div><img src="images/comments.png" alt="">52</div>
                         <div><img src="images/share.png" alt="">35</div>
                     </div>
@@ -252,3 +260,24 @@ function showListPostHome() {
     }
 }
 showListPostHome();
+
+function showLikePost(id) {
+    let ob = getKeyLocalStorage();
+    let url = "http://localhost:8080/likes/" + id;
+    let token = ob.token;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+        crossDomain: true,
+        type: "GET",
+        url: url,
+        success: function(data) {
+            console.log(data)
+            $('#likeData').text(JSON.stringify(data));
+        }
+    });
+}
+
