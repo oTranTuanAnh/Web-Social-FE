@@ -286,12 +286,15 @@ function showListPostHome() {
                     <div class="post-profile-picture">
                         <img src="images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
                     </div>
+                    <br>
+                    
                 </div>
                 <div id = "comment_list" style="display: none">
                 <div id="showComment"></div>
                <input type="text" id="comment-text${data[i].id}">
                <button onclick="createNewCom(${data[i].id})">OK</button>          
-                    </div>`
+                    </div>
+<div class="line-post"></div>`
                 }
                 console.log("success");
                 document.getElementById("post-home").innerHTML = content;
