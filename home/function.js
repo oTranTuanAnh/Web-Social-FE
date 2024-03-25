@@ -280,14 +280,18 @@ function showListPostHome() {
                     <div class="activity-icons">
                         <div>
                             <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
-                        <div><img src="images/comments.png" alt="">52</div>
+                        <div><img src="images/comments.png" alt="" onclick="showComment(${data[i].id})">52</div>
                         <div><img src="images/share.png" alt="">35</div>
                     </div>
                     <div class="post-profile-picture">
                         <img src="images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
                     </div>
                 </div>
-            `
+                <div id = "comment_list" style="display: none">
+                <div id="showComment"></div>
+               <input type="text" id="comment-text${data[i].id}">
+               <button onclick="createNewCom(${data[i].id})">OK</button>          
+                    </div>`
                 }
                 console.log("success");
                 document.getElementById("post-home").innerHTML = content;
@@ -315,6 +319,77 @@ function showLikePost(id) {
             // $('#likeData').text(JSON.stringify(data));
             document.getElementById(`postLike${id}`).innerHTML = JSON.stringify(data);
         }
+    });
+}
+function showComment(p_id){
+document.getElementById("comment_list").style.display = "block";
+    let ob = getKeyLocalStorage();
+    let url = "http://localhost:8080/comments/" + p_id;
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "GET",
+            url: url,
+            success: function (data) {
+                commentList = "";
+                for (let i = 0; i < data.length; i++) {
+                    commentList += `<span>${data[i].user.lastName} ${data[i].user.firstName}</span>
+                            <p>${data[i].content}</p>
+                             <button onclick="deleteCom(${data[i].id}, ${p_id})">Delete</button>   `;
+                  }
+                document.getElementById("showComment").innerHTML =commentList;
+            }
+            })
+    }
+
+}
+
+function createNewCom(p_id){
+
+    console.log("ok")
+    let c_content = document.getElementById("comment-text"+p_id).value;
+    let ob = getKeyLocalStorage();
+    let u_id = ob.id;
+    let newComment ={
+        "content": c_content,
+        "user": {
+            "id": u_id,
+        },
+        "post": {
+            "id": p_id,
+        }
+    }
+    let  url ="http://localhost:8080/comments/create/" + p_id;
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "POST",
+            data: JSON.stringify(newComment),
+            url: url,
+            success: function () {
+                console.log("OK")
+                showComment(p_id)
+            }
+        })
+    }
+}
+function deleteCom(id, p_id){
+    $.ajax({
+        type: "DELETE",
+        url: `http://localhost:8080/comments/delete/${id}`,
+        success: showComment(p_id)
     });
 }
 
