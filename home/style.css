@@ -722,6 +722,34 @@ img.coverImage {
     font-size: 14px;
 }
 
+button[name="accept_button"] {
+    background-color: #1876f2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[name="accept_button"]:hover {
+    background-color: #0e5a9e;
+}
+button[name="addfriend_button"] {
+    background-color: #1876f2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[name="addfriend_button"]:hover {
+    background-color: #0e5a9e;
+}
 button[name="post_button"] {
     background-color: #1876f2;
     color: white;
