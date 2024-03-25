@@ -158,7 +158,7 @@ function showListUser() {
 <!--                            <a href="">-->
                         </div>
                         <p>${data[i].firstName}  ${data[i].lastName} </p>
-                    <button onclick="addFriendRequest(${data[i].id})" type="button" id="btn-addfriend">Add Friend</button>
+                    <button name = "addfriend_button" onclick="addFriendRequest(${data[i].id})" type="button" id="btn-addfriend">+Add Friend</button>
                     </div>`
                 }
                 document.getElementById("friend-list").innerHTML = content;
@@ -209,7 +209,8 @@ function showFriendRequest(){
                             <img src="images/member-1.png" alt="">
                             <p>${data[i].user1.firstName} ${data[i].user1.lastName} </p>
                         </div>
-                    <button onclick="successRequest(${data[i].user1.id})" type="button" >Ok</button>
+                    <button name = "accept_button" onclick="successRequest(${data[i].user1.id})" type="button" >Accept</button>
+                    <button name = "remove_button" onclick="removeRequest(${data[i].user1.id})" type="button" >Remove</button>
                     </div>`;
                 }
                 document.getElementById("friend-request").innerHTML = content;
@@ -234,6 +235,26 @@ function successRequest(id){
             },
             crossDomain: true,
             type: "PUT",
+            url: "http://localhost:8080/home/friendrequest/"+id,
+            success: function (data) {
+                console.log(data)
+            }
+        })
+    }
+}
+function removeRequest(id){
+    event.preventDefault();
+    let ob = getKeyLocalStorage();
+    if (ob != null) {
+        let token = ob.token;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            crossDomain: true,
+            type: "DELETE",
             url: "http://localhost:8080/home/friendrequest/"+id,
             success: function (data) {
                 console.log(data)
