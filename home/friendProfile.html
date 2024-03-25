@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Profle - Socialbook</title>
     <script src="https://kit.fontawesome.com/ef7e2b893b.js" crossorigin="anonymous"></script>
-    <script src="friendFrofile.js"></script>
+    <script src="friendProfile.js"></script>
 </head>
 
 <body>
@@ -97,7 +97,7 @@
         </div>
         <div class="right-dashboard-info">
             <div class="right-dashboard-info-top">
-                <button type="button"><i class="fas fa-user-plus"></i> Friends</button>
+                <div id="friendStatus" onload="friendStatusButton()"><button type="button"><i class="fas fa-user-plus" ></i> Friends</button></div>
                 <button type="button"><i class="far fa-envelope"></i> messages</button>
             </div>
             <div class="right-div-single-logo"> <a href="#"> <i class="fas fa-ellipsis-h"></i></a></div>
@@ -235,7 +235,7 @@
     <p>&copy; Copyright 2021 - Socialbook All Rights Reserved</p>
 </footer>
 
-<script src="function.js"></script>
+<!--<script src="function.js"></script>-->
 </body>
 
 </html>
