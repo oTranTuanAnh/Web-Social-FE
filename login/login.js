@@ -20,6 +20,7 @@ function login() {
     })
 }
 
+
 function createNewUser(){
     let firstname = document.getElementById("firstname").value;
     let lastname = document.getElementById("lastname").value;

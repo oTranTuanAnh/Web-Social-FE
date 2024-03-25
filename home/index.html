@@ -73,7 +73,7 @@
 
         <div class="settings-links">
             <img src="images/logout.png" alt="" class="settings-icon">
-            <a href="#">Logout <img src="images/arrow.png" alt=""></a>
+            <a href="javascript:void(0)" onclick="logout()">Logout <img src="images/arrow.png" alt=""></a>
         </div>
 
     </div>
@@ -104,34 +104,19 @@
     <!-- main-content------- -->
 
     <div class="content-area">
-        <!--            <div class="story-gallery">-->
-        <!--                <div class="story story1">-->
-        <!--                    <img src="images/upload.png" alt="">-->
-        <!--                    <p>Post Story</p>-->
-        <!--                </div>-->
-        <!--                <div class="story story2">-->
-        <!--                    <img src="images/member-1.png" alt="">-->
-        <!--                    <p>Alison</p>-->
-        <!--                </div>-->
-        <!--                <div class="story story3">-->
-        <!--                    <img src="images/member-2.png" alt="">-->
-        <!--                    <p>Jackson</p>-->
-        <!--                </div>-->
-        <!--                <div class="story story4">-->
-        <!--                    <img src="images/member-3.png" alt="">-->
-        <!--                    <p>Samona</p>-->
-        <!--                </div>-->
-        <!--                <div class="story story5">-->
-        <!--                    <img src="images/member-4.png" alt="">-->
-        <!--                    <p>John</p>-->
-        <!--                </div>-->
+
         <!--            </div>-->
 
         <div class="write-post-container">
             <div class="user-profile">
+
                 <img src="images/profile-pic.png" alt="">
-                <div class="user-name" id="userName">
-                    <!--                    <p> Alex Carry</p>-->
+
+
+                <div class="user-name">
+                    <h3 id="userName"></h3>
+
+
                     <small>Public <i class="fas fa-caret-down"></i></small>
                 </div>
             </div>
@@ -146,13 +131,15 @@
                 </div>
 
             </div>
+
         </div>
 
-
         <h1 id="likeData"></h1>
+
+        <br>
         <div id="post-home"></div>
-        <button type="button" class="btn-LoadMore" onclick="LoadMoreToggle()">Load More</button>
     </div>
+
 
     <!-- sidebar------------ -->
     <div class="right-sidebar">
@@ -218,6 +205,7 @@
         </div>
     </div>
 </div>
+
 <footer id="footer">
     <p>&copy; Copyright 2021 - Socialbook All Rights Reserved</p>
 </footer>
