@@ -287,8 +287,8 @@ function showListPostHome() {
                         <img src="images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
                     </div>
                 </div>
-                <div id = "comment_list" style="display: none">
-                <div id="showComment"></div>
+                <div id = "comment_list${data[i].id}" style="display: none">
+                <div id="showComment${data[i].id}"></div>
                <input type="text" id="comment-text${data[i].id}">
                <button onclick="createNewCom(${data[i].id})">OK</button>          
                     </div>`
@@ -454,7 +454,7 @@ showListUser();
 
 
 function showComment(p_id){
-document.getElementById("comment_list").style.display = "block";
+document.getElementById("comment_list"+p_id).style.display = "block";
     let ob = getKeyLocalStorage();
     let url = "http://localhost:8080/comments/" + p_id;
     if (ob != null) {
@@ -475,7 +475,7 @@ document.getElementById("comment_list").style.display = "block";
                             <p>${data[i].content}</p>
                              <button onclick="deleteCom(${data[i].id}, ${p_id})">Delete</button>   `;
                   }
-                document.getElementById("showComment").innerHTML =commentList;
+                document.getElementById("showComment"+p_id).innerHTML =commentList;
             }
             })
     }
@@ -523,6 +523,6 @@ function deleteCom(id, p_id){
         url: `http://localhost:8080/comments/delete/${id}`,
         success: showComment(p_id)
     });
-}
+
 }
 
