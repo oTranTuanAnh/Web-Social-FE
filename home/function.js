@@ -40,6 +40,8 @@ function darkModeON(){
 function LoadMoreToggle(){
     LoadMoreBackground.classList.toggle("loadMoreToggle");
 };
+
+
 // $(document ).ready(function() {
 //     let ob = getKeyLocalStorage();
 //     let name = '<p>'+ob.name+'</p>';
@@ -88,9 +90,10 @@ function showListPost() {
                 content = "";
                 for (let i = 0; i < data.length; i++) {
                     content += `
+                <div class="user-status-box">
                 <div class="user-profile-box">
                     <div class="user-profile">
-                        <img src="images/profile-pic.png" alt="">
+                        <img src="images/ava${data[i].user.id}.jpg" alt="">
                         <div>
                             <p>${data[i].user.firstName} ${data[i].user.lastName}</p>
                             <small>${data[i].createDate}</small>
@@ -118,8 +121,8 @@ function showListPost() {
                     </div>
                 </div>
                 </div>
-                <hr>
- 
+                </div>
+             
             `
                 }
                 console.log("success");
@@ -153,8 +156,8 @@ function postingText() {
             data: JSON.stringify(newPost),
             url: "http://localhost:8080/posts/create",
             success: function () {
-                showListPost;
                 document.getElementById("post-text-input").value="";
+                showListPost();
             }
         })
     } else {
@@ -257,10 +260,11 @@ function showListPostHome() {
             success: function (data) {
                 content = "";
                 for (let i = 0; i < data.length; i++) {
-                    content += `
+                    content += `            
+                <div class="user-status-box">    
                 <div class="user-profile-box">
                     <div class="user-profile">
-                        <img src="images/profile-pic.png" alt="">
+                        <img src="images/ava${data[i].user.id}.jpg" alt="">
                         <div>
                             <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
                             <small>${data[i].createDate}</small>
@@ -279,14 +283,15 @@ function showListPostHome() {
                         <div><img src="images/share.png" alt="">35</div>
                     </div>
                     <div class="post-profile-picture">
-                        <img src="images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
+                        <img src="images/ava${ob.id}.jpg " alt=""> <i class=" fas fa-caret-down"></i>
                     </div>
+                </div>
                 </div>
                 <div id = "comment_list${data[i].id}" style="display: none">
                 <div id="showComment${data[i].id}"></div>
                <input type="text" id="comment-text${data[i].id}">
                <button onclick="createNewCom(${data[i].id})">OK</button>          
-                    </div>`
+               </div>`
                 }
                 console.log("success");
                 document.getElementById("post-home").innerHTML = content;
@@ -334,10 +339,9 @@ function showListUser() {
                 content = "";
                 for (let i = 0; i < data.length; i++) {
                     content += `
-                    <div className="online-list">
-                        <div className="online">
-                            <img src="images/member-1.png" alt="" onclick="setUserLocalStorage(${data[i].id})">
-<!--                            <a href="">-->
+                    <div class="list-friend">
+                        <div class="user-profile"> 
+                            <img src="images/ava${data[i].id}.jpg" alt="" onclick="setUserLocalStorage(${data[i].id})">
                         </div>
                         <p>${data[i].firstName}  ${data[i].lastName} </p>
                     <button name = "addfriend_button" onclick="addFriendRequest(${data[i].id})" type="button" id="btn-addfriend">+Add Friend</button>
@@ -389,7 +393,7 @@ function showFriendRequest(){
                 for (let i=0;i<data.length;i++){
                     content += `<div className="online-list">
                         <div className="online">
-                            <img src="images/member-1.png" alt="">
+                            <img src="images/ava${data[i].user.id}.jpg" alt="">
                             <p>${data[i].user1.firstName} ${data[i].user1.lastName} </p>
                         </div>
                     <button name = "accept_button" onclick="successRequest(${data[i].user1.id})" type="button" >Accept</button>
@@ -520,6 +524,33 @@ function deleteCom(id, p_id){
         url: `http://localhost:8080/comments/delete/${id}`,
         success: showComment(p_id)
     });
+}
+window.onload = function (){
+    let ob = getKeyLocalStorage();
+    let u_id = ob.id;
+    let str = "<img src=\"images/ava";
+    let ava_cur = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    let ava_post = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    let ava_profile = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    // let ava_profile_cur = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    // document.getElementById("user-profile-cur").innerHTML = ava_profile_cur;
+
+    document.getElementById("ava-current").innerHTML = ava_cur;
+    document.getElementById("ava-post").innerHTML = ava_post;
+    document.getElementById("ava-profile").innerHTML = ava_profile;
+}
+function showAva(){
+    let ob = getKeyLocalStorage();
+    let u_id = ob.id;
+    let str = "<img src=\"images/ava";
+
+    let ava_profile_cur = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    let ava_profile_cur_area = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    let ava_profile_img_online = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    document.getElementById("user-profile-cur").innerHTML = ava_profile_cur;
+    document.getElementById("user-profile-cur-text-area").innerHTML = ava_profile_cur_area;
+    document.getElementById("user-profile-online").innerHTML = ava_profile_img_online;
 
 }
+showAva();
 
