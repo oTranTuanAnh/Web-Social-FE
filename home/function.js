@@ -103,7 +103,7 @@ function showListPost() {
                     <div class="user-profile">
                         <img src="images/profile-pic.png" alt="">
                         <div>
-                            <p>${data[i].user.lastName} ${data[i].user.firstName}</p>
+                            <p>${data[i].user.firstName} ${data[i].user.lastName}</p>
                             <small>${data[i].createDate}</small>
                         </div>
                     </div>
@@ -207,6 +207,12 @@ function getUserData() {
     }
 }
 getUserData();
+
+function logout() {
+    localStorage.removeItem("object");
+    window.location.href = "../login/login.html";
+}
+
 function showListPostHome() {
     let ob = getKeyLocalStorage();
     let url = "http://localhost:8080/posts/home/" + ob.id;
@@ -280,4 +286,5 @@ function showLikePost(id) {
         }
     });
 }
+
 
