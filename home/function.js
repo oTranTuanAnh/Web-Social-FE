@@ -343,7 +343,7 @@ function showListUser() {
                         <div class="user-profile"> 
                             <img src="images/ava${data[i].id}.jpg" alt="" onclick="setUserLocalStorage(${data[i].id})">
                         </div>
-                        <p>${data[i].firstName}  ${data[i].lastName} </p>
+                        <p>${data[i].lastName} ${data[i].firstName}</p>
                     <button name = "addfriend_button" onclick="addFriendRequest(${data[i].id})" type="button" id="btn-addfriend">+Add Friend</button>
                     </div>`
                 }
@@ -532,12 +532,13 @@ window.onload = function (){
     let ava_cur = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
     let ava_post = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
     let ava_profile = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
-    // let ava_profile_cur = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
-    // document.getElementById("user-profile-cur").innerHTML = ava_profile_cur;
+    let ava_profile_menu = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+
 
     document.getElementById("ava-current").innerHTML = ava_cur;
     document.getElementById("ava-post").innerHTML = ava_post;
     document.getElementById("ava-profile").innerHTML = ava_profile;
+    document.getElementById("ava-profile-menu").innerHTML = ava_profile_menu;
 }
 function showAva(){
     let ob = getKeyLocalStorage();
@@ -547,9 +548,13 @@ function showAva(){
     let ava_profile_cur = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
     let ava_profile_cur_area = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
     let ava_profile_img_online = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    let ava_profile_post = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+
     document.getElementById("user-profile-cur").innerHTML = ava_profile_cur;
     document.getElementById("user-profile-cur-text-area").innerHTML = ava_profile_cur_area;
     document.getElementById("user-profile-online").innerHTML = ava_profile_img_online;
+    document.getElementById("user-profile-online").innerHTML = ava_profile_post;
+
 
 }
 showAva();

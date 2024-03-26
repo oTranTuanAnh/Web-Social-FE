@@ -350,21 +350,30 @@ img.advertisement-image {
     padding: 5px;
 }
 #ava-current{
-    border: 1px solid rgba(185,194,194,0.98);
-    border-radius: 5px;
+    /*border: 1px solid rgba(185,194,194,0.98);*/
+    border-radius: 50%;
     margin: 10px;
     width: 100px;
     height: 100px;
 }
 #ava-post {
-    border: 1px solid rgba(185,194,194,0.98);
-    border-radius: 5px;
+    /*border: 1px solid rgba(185,194,194,0.98);*/
+    border-radius: 70%;
     margin: 10px;
     width: 50px;
     height: 50px;
 }
 #ava-profile{
-    border: 1px solid rgba(185,194,194,0.98);
+
+    border-radius: 5px;
+    margin: 10px;
+    width: 40px;
+    height: 40px;
+    display: block;
+    align-items: center;
+}
+#ava-profile-menu{
+
     border-radius: 5px;
     margin: 10px;
     width: 40px;
@@ -382,14 +391,12 @@ img.advertisement-image {
     align-items: center;
 }
 #user-profile-cur-text-area{
-    border: 1px solid rgba(185,194,194,0.98);
     border-radius: 5px;
     margin: 10px;
     width: 50px;
     height: 50px;
 }
 #user-profile-online{
-    border: 1px solid rgba(185,194,194,0.98);
     border-radius: 5px;
     margin: 10px;
     width: 50px;
@@ -648,8 +655,14 @@ div#dark-button.dark-mode-on {
 img.coverImage {
     overflow: hidden;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 50%;
     margin-bottom: 20px;
+}
+img.coverImage1 {
+    overflow: hidden;
+    width: 100%;
+    border-radius: 10px;
+
 }
 
 .profile-container {
