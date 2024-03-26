@@ -67,7 +67,9 @@ function createLikesPost(post_Id) {
             },
             crossDomain: true,
             type: "POST",
-            url: `http://localhost:8080/likes/create/${post_Id}/${user_Id}`,
+            data: JSON.stringify(likePost),
+            url: "http://localhost:8080/likes/create",
+            success: showListPostHome
         })
     }
 }
@@ -111,7 +113,7 @@ function showListPost() {
                 <div class="post-reaction">
                     <div class="activity-icons">
                     <div>
-                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
+                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
 <!--                        <div><img src="images/like-blue.png" alt="">120</div>-->
                         <div><img src="images/comments.png" alt="">52</div>
                         <div><img src="images/share.png" alt="">35</div>
@@ -285,13 +287,16 @@ function showListPostHome() {
                     <div class="post-profile-picture">
                         <img src="images/ava${ob.id}.jpg " alt=""> <i class=" fas fa-caret-down"></i>
                     </div>
+                    <br>
+                    
                 </div>
                 </div>
                 <div id = "comment_list${data[i].id}" style="display: none">
-                <div id="showComment${data[i].id}"></div>
-               <input type="text" id="comment-text${data[i].id}">
-               <button onclick="createNewCom(${data[i].id})">OK</button>          
-               </div>`
+                <div id="showComment${data[i].id}"></div>         
+               <input class="input-style" placeholder="Comment..." type="text" id="comment-text${data[i].id}">
+               <button class="comment_ok_btn" onclick="createNewCom(${data[i].id})">Send</button>
+                    </div>
+                <div class="line-post"></div>`
                 }
                 console.log("success");
                 document.getElementById("post-home").innerHTML = content;
@@ -340,7 +345,7 @@ function showListUser() {
                 for (let i = 0; i < data.length; i++) {
                     content += `
                     <div class="list-friend">
-                        <div class="user-profile"> 
+                        <div class="user-profile">
                             <img src="images/ava${data[i].id}.jpg" alt="" onclick="setUserLocalStorage(${data[i].id})">
                         </div>
                         <p>${data[i].firstName}  ${data[i].lastName} </p>
@@ -473,9 +478,17 @@ document.getElementById("comment_list"+p_id).style.display = "block";
             success: function (data) {
                 commentList = "";
                 for (let i = 0; i < data.length; i++) {
-                    commentList += `<span>${data[i].user.lastName} ${data[i].user.firstName}</span>
+                    commentList += `<div class="outer-div">
+ <button class="delete_button_cmt" onclick="deleteCom(${data[i].id}, ${p_id})">X</button>
+ <div class="user-profile">
+                        <img src="images/profile-pic.png" alt="">
+                        <div>
+                            <span>${data[i].user.lastName} ${data[i].user.firstName}</span>
+                        </div>
+                    </div>
+                    <br>
                             <p>${data[i].content}</p>
-                             <button onclick="deleteCom(${data[i].id}, ${p_id})">Delete</button>   `;
+                             </div>`;
                   }
                 document.getElementById("showComment"+p_id).innerHTML =commentList;
             }
@@ -554,4 +567,3 @@ function showAva(){
 
 }
 showAva();
-

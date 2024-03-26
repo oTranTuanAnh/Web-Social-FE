@@ -858,3 +858,73 @@ button[name="delete_button"]:hover {
     margin-top: 10px !important;
     margin-bottom: 10px !important;
 }
+
+#post-home{
+    color: #626262;
+    background-color: var(--bg-color);
+    width: 100%;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.line-post{
+    width: 100%;
+    height: 1px;
+    background-color: #626262;
+    margin-bottom: 10px;
+}
+
+.input-style {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 13px;
+    color:#626262;
+}
+
+
+.input-style:hover {
+    border-color: #999;
+}
+
+
+.input-style:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+}
+
+.comment_ok_btn{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #1876f2;
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 7px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete_button_cmt{
+    float:right;
+    background-color: #ff0000;
+    color: white;
+    padding: 3px 7px;
+    border: none;
+    border-radius: 7px;
+    font-size: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.outer-div{
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
