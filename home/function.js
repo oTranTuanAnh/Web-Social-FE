@@ -67,9 +67,7 @@ function createLikesPost(post_Id) {
             },
             crossDomain: true,
             type: "POST",
-            data: JSON.stringify(likePost),
-            url: "http://localhost:8080/likes/create",
-            success: showListPostHome
+            url: `http://localhost:8080/likes/create/${post_Id}/${user_Id}`,
         })
     }
 }
@@ -113,9 +111,9 @@ function showListPost() {
                 <div class="post-reaction">
                     <div class="activity-icons">
                     <div>
-                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
+                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
 <!--                        <div><img src="images/like-blue.png" alt="">120</div>-->
-                        <div><img src="images/comments.png" alt="">52</div>
+                         <div><img src="images/comments.png" alt="" onclick="showComment(${data[i].id})" onload="countComment(${data[i].id})"><span id="countComment${data[i].id}"></span></div>
                         <div><img src="images/share.png" alt="">35</div>
                     </div>
                     <div class="post-profile-picture">
@@ -123,7 +121,13 @@ function showListPost() {
                     </div>
                 </div>
                 </div>
-                </div>
+                <div id = "comment_list${data[i].id}" style="display: none">
+                <div id="showComment${data[i].id}"></div>         
+               <input class="input-style" placeholder="Comment..." type="text" id="comment-text${data[i].id}">
+               <button class="comment_ok_btn" onclick="createNewCom(${data[i].id})">Send</button>
+               <button class="comment_ok_btn" onclick="hideComment(${data[i].id})">Hide</button>
+                    </div>
+                <div class="line-post"></div>
              
             `
                 }
@@ -280,9 +284,10 @@ function showListPostHome() {
                 <div class="post-reaction">
                     <div class="activity-icons">
                         <div>
-                            <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
-                        <div><img src="images/comments.png" alt="" onclick="showComment(${data[i].id})">52</div>
-                        <div><img src="images/share.png" alt="">35</div>
+                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
+                           <div><img src="images/comments.png" alt="" onclick="showComment(${data[i].id})" onload="countComment(${data[i].id})"><span id="countComment${data[i].id}"></span></div>
+
+                        <div><img src="images/share.png" alt=""></div>
                     </div>
                     <div class="post-profile-picture">
                         <img src="images/ava${ob.id}.jpg " alt=""> <i class=" fas fa-caret-down"></i>
@@ -345,13 +350,15 @@ function showListUser() {
                 content = "";
                 for (let i = 0; i < data.length; i++) {
                     content += `
+                   
                     <div class="list-friend">
                         <div class="user-profile">
                             <img src="images/ava${data[i].id}.jpg" alt="" onclick="setUserLocalStorage(${data[i].id})">
                         </div>
                         <p>${data[i].firstName}  ${data[i].lastName} </p>
                     <button name = "addfriend_button" onclick="addFriendRequest(${data[i].id})" type="button" id="btn-addfriend">+Add Friend</button>
-                    </div>`
+                    </div>
+                    `
                 }
                 document.getElementById("friend-list").innerHTML = content;
             }
@@ -373,7 +380,7 @@ function addFriendRequest(id){
             url: "http://localhost:8080/home/friendrequest/add/"+id,
             success: function (data) {
                 console.log("done");
-                window.location.reload();
+                showListUser()
                 // window.location.href = "../home/index.html";
             }
         })
@@ -534,10 +541,29 @@ function createNewCom(p_id){
             success: function () {
                 console.log("OK")
                 document.getElementById("comment-text"+p_id).value = "";
+                countComment(p_id)
                 showComment(p_id)
             }
         })
     }
+}function countComment(id) {
+    let ob = getKeyLocalStorage();
+    let url = "http://localhost:8080/comments/count/" + id;
+    let token = ob.token;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+        crossDomain: true,
+        type: "GET",
+        url: url,
+        success: function(data) {
+            document.getElementById(`countComment${id}`).innerHTML = JSON.stringify(data);
+
+        }
+    });
 }
 function deleteCom(id, p_id){
     $.ajax({
@@ -545,6 +571,7 @@ function deleteCom(id, p_id){
         url: `http://localhost:8080/comments/delete/${id}`,
         success: function (){
             document.getElementById("comment-text"+p_id).value = "";
+            countComment(p_id)
             showComment(p_id)
 
 
@@ -558,12 +585,13 @@ window.onload = function (){
     let ava_cur = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
     let ava_post = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
     let ava_profile = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
-    // let ava_profile_cur = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    let ava_profile_tongle = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
     // document.getElementById("user-profile-cur").innerHTML = ava_profile_cur;
 
     document.getElementById("ava-current").innerHTML = ava_cur;
     document.getElementById("ava-post").innerHTML = ava_post;
     document.getElementById("ava-profile").innerHTML = ava_profile;
+    document.getElementById("ava-toggle").innerHTML = ava_profile_tongle;
 }
 function showAva(){
     let ob = getKeyLocalStorage();
