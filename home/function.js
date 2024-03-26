@@ -393,11 +393,11 @@ function showFriendRequest(){
                 for (let i=0;i<data.length;i++){
                     content += `<div className="online-list">
                         <div className="online">
-                            <img src="images/ava${data[i].user.id}.jpg" alt="">
-                            <p>${data[i].user1.firstName} ${data[i].user1.lastName} </p>
+                            <img src="images/ava${data[i].user1.id}.jpg" alt="" width="100px" height="100px" ">
+                            <p style="font-size: 15px">${data[i].user1.firstName} ${data[i].user1.lastName} </p>
                         </div>
-                    <button name = "accept_button" onclick="successRequest(${data[i].user1.id})" type="button" >Accept</button>
-                    <button name = "remove_button" onclick="removeRequest(${data[i].user1.id})" type="button" >Remove</button>
+                    <button class="btn-fr"  name = "accept_button" onclick="successRequest(${data[i].user1.id})" type="button"  >Accept</button>
+                    <button class="btn-fr" name = "delete_button" onclick="removeRequest(${data[i].user1.id})" type="button" >Remove</button>
                     </div>`;
                 }
                 document.getElementById("friend-request").innerHTML = content;
@@ -405,6 +405,7 @@ function showFriendRequest(){
         })
     }
 }
+showFriendRequest();
 function showProfile(id){
     localStorage.setItem("id",id);
     window.location.href = "profile.html";
@@ -450,7 +451,7 @@ function removeRequest(id){
         })
     }
 }
-showFriendRequest();
+
 showListUser();
 
 
