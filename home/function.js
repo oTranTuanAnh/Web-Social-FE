@@ -281,7 +281,7 @@ function showListPostHome() {
                     <div class="activity-icons">
                         <div>
                             <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
-                        <div><img src="images/comments.png" alt="" onclick="showComment(${data[i].id})">52</div>
+                        <div><img src="images/comments.png" alt="" onclick="showComment(${data[i].id})" onload="countComment(${data[i].id})"><span id="countComment${data[i].id}"></span></div>
                         <div><img src="images/share.png" alt="">35</div>
                     </div>
                     <div class="post-profile-picture">
@@ -567,3 +567,23 @@ function showAva(){
 
 }
 showAva();
+
+function countComment(id) {
+    let ob = getKeyLocalStorage();
+    let url = "http://localhost:8080/comments/count/" + id;
+    let token = ob.token;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+        crossDomain: true,
+        type: "GET",
+        url: url,
+        success: function(data) {
+            document.getElementById(`countComment${id}`).innerHTML = JSON.stringify(data);
+        }
+    });
+}
+
