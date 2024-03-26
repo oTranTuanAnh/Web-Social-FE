@@ -295,6 +295,7 @@ function showListPostHome() {
                 <div id="showComment${data[i].id}"></div>         
                <input class="input-style" placeholder="Comment..." type="text" id="comment-text${data[i].id}">
                <button class="comment_ok_btn" onclick="createNewCom(${data[i].id})">Send</button>
+               <button class="comment_ok_btn" onclick="hideComment(${data[i].id})">Hide</button>
                     </div>
                 <div class="line-post"></div>`
                 }
@@ -478,23 +479,28 @@ document.getElementById("comment_list"+p_id).style.display = "block";
             success: function (data) {
                 commentList = "";
                 for (let i = 0; i < data.length; i++) {
-                    commentList += `<div class="outer-div">
- <button class="delete_button_cmt" onclick="deleteCom(${data[i].id}, ${p_id})">X</button>
- <div class="user-profile">
-                        <img src="images/profile-pic.png" alt="">
+                    commentList += `<div id="com-list${p_id}" style="display: block">
+                <div class="outer-div"  >
+                   <button class="delete_button_cmt" onclick="deleteCom(${data[i].id}, ${p_id})">X</button>
+                     <div class="user-profile">
+                        <img src="images/ava${data[i].user.id}.jpg" alt="">
                         <div>
                             <span>${data[i].user.lastName} ${data[i].user.firstName}</span>
                         </div>
                     </div>
                     <br>
                             <p>${data[i].content}</p>
-                             </div>`;
+                             </div>
+                </div>`;
                   }
                 document.getElementById("showComment"+p_id).innerHTML =commentList;
             }
             })
     }
 
+}
+function hideComment(p_id){
+    document.getElementById("comment_list"+p_id).style.display = "none";
 }
 
 function createNewCom(p_id){
@@ -527,6 +533,7 @@ function createNewCom(p_id){
             url: url,
             success: function () {
                 console.log("OK")
+                document.getElementById("comment-text"+p_id).value = "";
                 showComment(p_id)
             }
         })
@@ -536,7 +543,12 @@ function deleteCom(id, p_id){
     $.ajax({
         type: "DELETE",
         url: `http://localhost:8080/comments/delete/${id}`,
-        success: showComment(p_id)
+        success: function (){
+            document.getElementById("comment-text"+p_id).value = "";
+            showComment(p_id)
+
+
+        }
     });
 }
 window.onload = function (){
