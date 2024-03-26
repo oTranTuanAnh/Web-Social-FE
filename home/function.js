@@ -57,6 +57,7 @@ function LoadMoreToggle(){
 function createLikesPost(post_Id) {
     let ob = getKeyLocalStorage();
     let user_Id = ob.id;
+    let url="http://localhost:8080/likes/create/"+post_Id+"/"+user_Id;
     if (ob != null) {
         let token = ob.token;
         $.ajax({
@@ -67,7 +68,11 @@ function createLikesPost(post_Id) {
             },
             crossDomain: true,
             type: "POST",
-            url: `http://localhost:8080/likes/create/${post_Id}/${user_Id}`,
+            url: url,
+            success: function () {
+                console.log("ok")
+                showLikePost(post_Id)
+            }
         })
     }
 }
@@ -111,7 +116,7 @@ function showListPost() {
                 <div class="post-reaction">
                     <div class="activity-icons">
                     <div>
-                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
+                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
 <!--                        <div><img src="images/like-blue.png" alt="">120</div>-->
                          <div><img src="images/comments.png" alt="" onclick="showComment(${data[i].id})" onload="countComment(${data[i].id})"><span id="countComment${data[i].id}"></span></div>
                         <div><img src="images/share.png" alt="">35</div>
@@ -284,8 +289,8 @@ function showListPostHome() {
                 <div class="post-reaction">
                     <div class="activity-icons">
                         <div>
-                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id});showLikePost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
-                           <div><img src="images/comments.png" alt="" onclick="showComment(${data[i].id})" onload="countComment(${data[i].id})"><span id="countComment${data[i].id}"></span></div>
+                        <img src="images/like-blue.png" alt="" onload="showLikePost(${data[i].id})" onclick="createLikesPost(${data[i].id})"><span id="postLike${data[i].id}"></span></div>
+                        <div><img src="images/comments.png" alt="" onclick="showComment(${data[i].id})" onload="countComment(${data[i].id})"><span id="countComment${data[i].id}"></span></div>
 
                         <div><img src="images/share.png" alt=""></div>
                     </div>
