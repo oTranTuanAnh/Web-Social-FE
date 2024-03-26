@@ -292,16 +292,11 @@ function showListPostHome() {
                 </div>
                 </div>
                 <div id = "comment_list${data[i].id}" style="display: none">
-                <div id="showComment${data[i].id}"></div>
-               <input type="text" id="comment-text${data[i].id}">
-               <button onclick="createNewCom(${data[i].id})">OK</button>          
-               </div>`
-                <div id = "comment_list" style="display: none">
-                <div id="showComment"></div>
+                <div id="showComment${data[i].id}"></div>         
                <input class="input-style" placeholder="Comment..." type="text" id="comment-text${data[i].id}">
                <button class="comment_ok_btn" onclick="createNewCom(${data[i].id})">Send</button>
                     </div>
-<div class="line-post"></div>`
+                <div class="line-post"></div>`
                 }
                 console.log("success");
                 document.getElementById("post-home").innerHTML = content;
@@ -557,4 +552,17 @@ window.onload = function (){
     document.getElementById("ava-post").innerHTML = ava_post;
     document.getElementById("ava-profile").innerHTML = ava_profile;
 }
+function showAva(){
+    let ob = getKeyLocalStorage();
+    let u_id = ob.id;
+    let str = "<img src=\"images/ava";
 
+    let ava_profile_cur = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    let ava_profile_cur_area = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    let ava_profile_img_online = str+u_id +  ".jpg\" class=\"coverImage\" alt=\"\">";
+    document.getElementById("user-profile-cur").innerHTML = ava_profile_cur;
+    document.getElementById("user-profile-cur-text-area").innerHTML = ava_profile_cur_area;
+    document.getElementById("user-profile-online").innerHTML = ava_profile_img_online;
+
+}
+showAva();
